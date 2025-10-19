@@ -1,0 +1,11 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() 
+    system("pwd");
+    
+    printf("ты здесь, а мог быть на бали\n");
+    
+    return 0;
+}
